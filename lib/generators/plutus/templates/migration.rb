@@ -1,6 +1,7 @@
 class CreatePlutusTables < ActiveRecord::Migration
   def self.up
     create_table :plutus_accounts do |t|
+      t.references :tenant, index: true
       t.string :name
       t.string :type
       t.boolean :contra
@@ -10,6 +11,7 @@ class CreatePlutusTables < ActiveRecord::Migration
     add_index :plutus_accounts, [:name, :type]
 
     create_table :plutus_entries do |t|
+      t.references :tenant, index: true
       t.string :description
       t.integer :commercial_document_id
       t.string :commercial_document_type
@@ -19,6 +21,7 @@ class CreatePlutusTables < ActiveRecord::Migration
     add_index :plutus_entries, [:commercial_document_id, :commercial_document_type], :name => "index_entries_on_commercial_doc"
 
     create_table :plutus_amounts do |t|
+      t.references :tenant, index: true
       t.string :type
       t.references :account
       t.references :entry

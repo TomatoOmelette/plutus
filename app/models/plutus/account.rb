@@ -34,9 +34,9 @@ module Plutus
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
     has_many :credit_entries, :through => :credit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
     has_many :debit_entries, :through => :debit_amounts, :source => :entry, :class_name => 'Plutus::Entry'
-
+    acts_as_tenant
     validates_presence_of :type, :name
-    validates_uniqueness_of :name
+    validates_uniqueness_of :name, :scope => :tenant_id
 
     # The credit balance for the account.
     #

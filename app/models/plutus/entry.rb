@@ -27,7 +27,7 @@ module Plutus
     has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Plutus::DebitAmount'
     has_many :credit_accounts, :through => :credit_amounts, :source => :account, :class_name => 'Plutus::Account'
     has_many :debit_accounts, :through => :debit_amounts, :source => :account, :class_name => 'Plutus::Account'
-
+    acts_as_tenant
     validates_presence_of :description
     validate :has_credit_amounts?
     validate :has_debit_amounts?
